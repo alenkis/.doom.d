@@ -21,3 +21,5 @@
                                          :deadline future)))
   :config
   (org-super-agenda-mode))
+
+(setq display-line-numbers-type 'relative)

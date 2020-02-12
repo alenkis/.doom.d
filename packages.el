@@ -7,3 +7,6 @@
 ;; (package! builtin-package :disable t)
 
 (package! org-super-agenda)
+(package! centered-cursor-mode)
+(package! github-review)
+(package! exec-path-from-shell)

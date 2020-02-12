@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: arrow function
+# uuid:
+# key: arw
+# condition: t
+# --
+($1) => {$2}
