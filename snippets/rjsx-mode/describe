@@ -1,9 +1,8 @@
 # -*- mode: snippet -*-
 # name: describe
-# uuid:
 # key: describe
-# condition: t
 # --
+
 describe('$1', () => {
   $2
 })

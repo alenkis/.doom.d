@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: useEffect
+# key: ruf
+# --
+
+useEffect(() => {
+  $2
+}, [$1]);

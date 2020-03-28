@@ -1,9 +1,8 @@
 # -*- mode: snippet -*-
 # name: it
-# uuid:
 # key: it
-# condition: t
 # --
+
 it('should $1', () => {
   $2
 })

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: arrow-fn
+# key: arw
+# --
+
+($1) => {$2}
