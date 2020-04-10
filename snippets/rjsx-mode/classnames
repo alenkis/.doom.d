@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: classnames
+# key: cx
+# --
+
+className={'$1', cx({ $2 })}
+$0
