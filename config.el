@@ -1,7 +1,5 @@
 ;;; ~/.doom.d/config.el -*- lexical-binding: t; -*-
 
-;; Place your private configuration here
-
 (setq
  projectile-project-search-path '("~/projects"))
 
@@ -23,3 +21,20 @@
   (org-super-agenda-mode))
 
 (setq display-line-numbers-type 'relative)
+(setq-default indent-tabs-mode nil)
+
+(require 'rjsx-mode)
+(add-hook 'js2-mode-hook (lambda () (setq js2-basic-offset 2)))
+
+(map! :leader
+      :desc "Terminal (ansi)" "o t"
+      '(lambda ()
+         (interactive)
+         (progn
+           (let ((name "terminal"))
+             (evil-window-vsplit)
+             (if (get-buffer name)
+                 (switch-to-buffer name)
+               (progn
+                 (ansi-term "/bin/zsh")
+                 (rename-buffer "terminal")))))))
