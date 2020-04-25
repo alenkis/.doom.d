@@ -10,3 +10,5 @@
 (package! centered-cursor-mode)
 (package! github-review)
 (package! exec-path-from-shell)
+(package! prettier-js)
+(package! emmet-mode)

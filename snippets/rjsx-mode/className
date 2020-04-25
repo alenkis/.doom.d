@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: className
+# uuid:
+# key: cs
+# --
+
+className="$1" $0

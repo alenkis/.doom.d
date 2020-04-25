@@ -12,7 +12,7 @@
                                   (:name "Due today"
                                          :deadline today)
                                   (:name "Important"
-                                         :priorioty "A")
+                                         :priority "A")
                                   (:name "Overdue"
                                          :deadline past)
                                   (:name "Due soon"
@@ -21,10 +21,17 @@
   (org-super-agenda-mode))
 
 (setq display-line-numbers-type 'relative)
-(setq-default indent-tabs-mode nil)
+(setq-default typescript-indent-level 2)
 
-(require 'rjsx-mode)
-(add-hook 'js2-mode-hook (lambda () (setq js2-basic-offset 2)))
+(add-hook 'js2-mode-hook 'prettier-js-mode)
+(add-hook 'json-mode-hook 'prettier-js-mode)
+
+(setq emmet-expand-jsx-className? t)
+(add-hook 'js2-mode-hook 'emmet-mode)
+(map! :leader
+      :desc "Expand emmet line" "e e" #'emmet-expand-line) ;
+
+(add-hook 'fundamental-mode 'centered-cursor-mode)
 
 (map! :leader
       :desc "Terminal (ansi)" "o t"
