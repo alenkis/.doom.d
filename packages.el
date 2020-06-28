@@ -12,3 +12,4 @@
 (package! exec-path-from-shell)
 (package! prettier-js)
 (package! emmet-mode)
+(package! flycheck-clj-kondo)
