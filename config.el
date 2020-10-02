@@ -71,3 +71,15 @@
 ;; (add-hook 'before-save-hook 'tide-format-before-save)
 
 (add-hook 'typescript-mode-hook #'setup-tide-mode)
+(use-package! flycheck-clj-kondo
+  :after clojurescript-mode)
+
+;; ;; First install the package:
+;; (use-package flycheck-clj-kondo
+;;   :ensure t)
+
+;; ;; then install the checker as soon as `clojure-mode' is loaded
+;; (use-package clojure-mode
+;;   :ensure t
+;;   :config
+;;   (require 'flycheck-clj-kondo))

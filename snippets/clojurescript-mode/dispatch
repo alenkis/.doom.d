@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: rf/dispatch
+# key: disp
+# --
+
+(rf/dispatch [$1])$0
