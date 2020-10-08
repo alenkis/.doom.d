@@ -83,3 +83,7 @@
 ;;   :ensure t
 ;;   :config
 ;;   (require 'flycheck-clj-kondo))
+;;
+(setq deft-directory "~/notes"
+      deft-extensions '("org" "txt" "md")
+      deft-recursive t)
