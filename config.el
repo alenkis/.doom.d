@@ -40,6 +40,7 @@
 (setq-default js2-basic-offset 2)
 
 (add-hook 'js2-mode-hook 'prettier-js-mode)
+(add-hook 'typescript-mode 'prettier-js-mode)
 (add-hook 'json-mode-hook 'prettier-js-mode)
 
 (setq emmet-expand-jsx-className? t)
@@ -65,12 +66,23 @@
 (use-package! flycheck-clj-kondo
   :after clojurescript-mode)
 
-;; ;; First install the package:
-;; (use-package flycheck-clj-kondo
-;;   :ensure t)
+(defun add-clj-format-before-save 
+    ()
+    (interactive)
+    (add-hook 'before-save-hook 'cider-format-buffer t t))
 
-;; ;; then install the checker as soon as `clojure-mode' is loaded
-;; (use-package clojure-mode
-;;   :ensure t
-;;   :config
-;;   (require 'flycheck-clj-kondo))
+(add-hook 'clojure-mode-hook 'add-clj-format-before-save)
+(add-hook 'clojurescript-mode 'add-clj-format-before-save)
+
+;; RUST
+(use-package rustic
+  :init
+  (setq racer-rust-src-path
+        (concat
+         (string-trim
+          (shell-command-to-string "rustc --print sysroot"))
+         "/lib/rustlib/src/rust/src"))
+  (setq rustic-lsp-server 'rust-analyzer)
+  (setq rustic-flycheck-setup-mode-line-p nil)
+  :config
+  (setq rustic-format-on-save t))
