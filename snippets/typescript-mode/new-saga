@@ -1,0 +1,23 @@
+# -*- mode: snippet -*-
+# name: new-saga
+# key: saga                                                  
+# --
+
+export interface I${1:$(pascal-case! yas-text)}Payload {
+  $3
+}
+
+export interface I${1:$(pascal-case! yas-text)}Action {
+  type: $2;
+  payload: I${1:$(pascal-case! yas-text)}Payload;
+
+}
+
+export function* ${1:var} (action: I${1:$(pascal-case! yas-text)}Action) {
+  $4
+  try {
+    $5
+  } catch (err) {
+    $6
+  }
+}

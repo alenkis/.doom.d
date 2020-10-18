@@ -1,7 +1,19 @@
 ;;; ~/.doom.d/config.el -*- lexical-binding: t; -*-
 
+(setq projectile-project-paths
+      (let ((base-dir "~/projects/")
+            (list-of-projects '("clojure"
+                                "javascript"
+                                "libraries"
+                                "misc"
+                                "react"
+                                "rust"
+                                "typescript"
+                                "vue")))
+        (mapcar (lambda (project) (concat base-dir project)) list-of-projects)))
+
 (setq
- projectile-project-search-path '("~/projects"))
+ projectile-project-search-path projectile-project-paths)
 
 (use-package! org-super-agenda
   :after org-agenda

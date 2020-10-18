@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: pretty-print
+# key: pp           
+# --
+
+println!("{:#?}", $1);
