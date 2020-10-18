@@ -43,6 +43,8 @@
 (add-hook 'typescript-mode 'prettier-js-mode)
 (add-hook 'json-mode-hook 'prettier-js-mode)
 
+(add-to-list 'auto-mode-alist '("\\.vue\\'" . rjsx-mode))
+
 (setq emmet-expand-jsx-className? t)
 (add-hook 'js2-mode-hook 'emmet-mode)
 (map! :leader
@@ -63,6 +65,25 @@
                  (ansi-term "/bin/zsh")
                  (rename-buffer "terminal")))))))
 
+(defun setup-tide-mode ()
+  (interactive)
+  (tide-setup)
+  (flycheck-mode +1)
+  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (eldoc-mode +1)
+  (tide-hl-identifier-mode +1)
+  ;; company is an optional dependency. You have to
+  ;; install it separately via package-install
+  ;; `M-x package-install [ret] company`
+  (company-mode +1))
+
+;; aligns annotation to the right hand side
+(setq company-tooltip-align-annotations t)
+
+;; formats the buffer before saving
+;; (add-hook 'before-save-hook 'tide-format-before-save)
+
+(add-hook 'typescript-mode-hook #'setup-tide-mode)
 (use-package! flycheck-clj-kondo
   :after clojurescript-mode)
 
