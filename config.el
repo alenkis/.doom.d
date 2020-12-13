@@ -53,6 +53,9 @@
 (add-hook 'fundamental-mode 'centered-cursor-mode)
 
 (map! :leader
+      :desc "toggle centered cursor" :n "t c" (λ! () (interactive) (centered-cursor-mode 'toggle)))
+
+(map! :leader
       :desc "Terminal (ansi)" "o t"
       '(lambda ()
          (interactive)
@@ -94,6 +97,31 @@
 
 (add-hook 'clojure-mode-hook 'add-clj-format-before-save)
 (add-hook 'clojurescript-mode 'add-clj-format-before-save)
+
+;; Similar to C-x C-e, but sends to REBL
+(defun rebl-eval-last-sexp ()
+  (interactive)
+  (let* ((bounds (cider-last-sexp 'bounds))
+         (s (cider-last-sexp))
+         (reblized (concat "(cognitect.rebl/inspect " s ")")))
+    (cider-interactive-eval reblized nil bounds (cider--nrepl-print-request-map))))
+
+;; Similar to C-M-x, but sends to REBL
+(defun rebl-eval-defun-at-point ()
+  (interactive)
+  (let* ((bounds (cider-defun-at-point 'bounds))
+         (s (cider-defun-at-point))
+         (reblized (concat "(cognitect.rebl/inspect " s ")")))
+    (cider-interactive-eval reblized nil bounds (cider--nrepl-print-request-map))))
+
+
+(map! :after cider
+      :map clojure-mode-map
+      :localleader
+      (:desc "eval" :prefix "e"
+       :desc "send last sexp to REBL" :n "E" #'rebl-eval-last-sexp
+       :desc "defn at point to REBL" :n "P" #'rebl-eval-defun-at-point
+       ))
 
 ;; RUST
 (use-package rustic
