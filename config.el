@@ -1,7 +1,19 @@
 ;;; ~/.doom.d/config.el -*- lexical-binding: t; -*-
 
+(setq projectile-project-paths
+      (let ((base-dir "~/projects/")
+            (list-of-projects '("clojure"
+                                "javascript"
+                                "libraries"
+                                "misc"
+                                "react"
+                                "rust"
+                                "typescript"
+                                "vue")))
+        (mapcar (lambda (project) (concat base-dir project)) list-of-projects)))
+
 (setq
- projectile-project-search-path '("~/projects"))
+ projectile-project-search-path projectile-project-paths)
 
 (use-package! org-super-agenda
   :after org-agenda
@@ -28,6 +40,7 @@
 (setq-default js2-basic-offset 2)
 
 (add-hook 'js2-mode-hook 'prettier-js-mode)
+(add-hook 'typescript-mode 'prettier-js-mode)
 (add-hook 'json-mode-hook 'prettier-js-mode)
 
 (add-to-list 'auto-mode-alist '("\\.vue\\'" . rjsx-mode))
@@ -38,6 +51,9 @@
       :desc "Expand emmet line" "e e" #'emmet-expand-line) ;
 
 (add-hook 'fundamental-mode 'centered-cursor-mode)
+
+(map! :leader
+      :desc "toggle centered cursor" :n "t c" (λ! () (interactive) (centered-cursor-mode 'toggle)))
 
 (map! :leader
       :desc "Terminal (ansi)" "o t"
@@ -74,10 +90,32 @@
 (use-package! flycheck-clj-kondo
   :after clojurescript-mode)
 
-;; ;; First install the package:
-;; (use-package flycheck-clj-kondo
-;;   :ensure t)
+(defun add-clj-format-before-save 
+    ()
+    (interactive)
+    (add-hook 'before-save-hook 'cider-format-buffer t t))
 
+(add-hook 'clojure-mode-hook 'add-clj-format-before-save)
+(add-hook 'clojurescript-mode 'add-clj-format-before-save)
+
+;; Similar to C-x C-e, but sends to REBL
+(defun rebl-eval-last-sexp ()
+  (interactive)
+  (let* ((bounds (cider-last-sexp 'bounds))
+         (s (cider-last-sexp))
+         (reblized (concat "(cognitect.rebl/inspect " s ")")))
+    (cider-interactive-eval reblized nil bounds (cider--nrepl-print-request-map))))
+
+;; Similar to C-M-x, but sends to REBL
+(defun rebl-eval-defun-at-point ()
+  (interactive)
+  (let* ((bounds (cider-defun-at-point 'bounds))
+         (s (cider-defun-at-point))
+         (reblized (concat "(cognitect.rebl/inspect " s ")")))
+    (cider-interactive-eval reblized nil bounds (cider--nrepl-print-request-map))))
+
+
+<<<<<<< HEAD
 ;; ;; then install the checker as soon as `clojure-mode' is loaded
 ;; (use-package clojure-mode
 ;;   :ensure t
@@ -87,3 +125,25 @@
 (setq deft-directory "~/notes"
       deft-extensions '("org" "txt" "md")
       deft-recursive t)
+=======
+(map! :after cider
+      :map clojure-mode-map
+      :localleader
+      (:desc "eval" :prefix "e"
+       :desc "send last sexp to REBL" :n "E" #'rebl-eval-last-sexp
+       :desc "defn at point to REBL" :n "P" #'rebl-eval-defun-at-point
+       ))
+
+;; RUST
+(use-package rustic
+  :init
+  (setq racer-rust-src-path
+        (concat
+         (string-trim
+          (shell-command-to-string "rustc --print sysroot"))
+         "/lib/rustlib/src/rust/src"))
+  (setq rustic-lsp-server 'rust-analyzer)
+  (setq rustic-flycheck-setup-mode-line-p nil)
+  :config
+  (setq rustic-format-on-save t))
+>>>>>>> 13213bf417b4f79d1c66f507d6323146082842c9
