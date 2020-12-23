@@ -50,8 +50,6 @@
 (map! :leader
       :desc "Expand emmet line" "e e" #'emmet-expand-line) ;
 
-(add-hook 'fundamental-mode 'centered-cursor-mode)
-
 (map! :leader
       :desc "toggle centered cursor" :n "t c" (λ! () (interactive) (centered-cursor-mode 'toggle)))
 
@@ -115,17 +113,6 @@
     (cider-interactive-eval reblized nil bounds (cider--nrepl-print-request-map))))
 
 
-<<<<<<< HEAD
-;; ;; then install the checker as soon as `clojure-mode' is loaded
-;; (use-package clojure-mode
-;;   :ensure t
-;;   :config
-;;   (require 'flycheck-clj-kondo))
-;;
-(setq deft-directory "~/notes"
-      deft-extensions '("org" "txt" "md")
-      deft-recursive t)
-=======
 (map! :after cider
       :map clojure-mode-map
       :localleader
@@ -146,4 +133,3 @@
   (setq rustic-flycheck-setup-mode-line-p nil)
   :config
   (setq rustic-format-on-save t))
->>>>>>> 13213bf417b4f79d1c66f507d6323146082842c9
