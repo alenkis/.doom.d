@@ -121,6 +121,22 @@
        :desc "defn at point to REBL" :n "P" #'rebl-eval-defun-at-point
        ))
 
+;; http://danmidwood.com/content/2014/11/21/animated-paredit.html
+(map!
+ :map clojure-mode-map
+ :localleader
+ (:prefix ("f" . "paredit")
+  :desc "slurp" :n "s" #'paredit-forward-slurp-sexp
+  :desc "barf" :n "b" #'paredit-forward-barf-sexp
+  :desc "forward" :n "<right>" #'paredit-forward
+  :desc "backward" :n "<left>" #'paredit-backward
+  :desc "up" :n "<up>" #'paredit-forward-up
+  :desc "down" :n "<down>" #'paredit-backward-down
+  ;; nested prefix
+  ;; (:prefix ("f" . "forward")
+  ;;  :desc "slurp" :n "s" #'paredit-forward-slurp-sexp)
+  ))
+
 ;; RUST
 (use-package rustic
   :init
