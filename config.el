@@ -132,6 +132,8 @@
   :desc "backward" :n "<left>" #'paredit-backward
   :desc "up" :n "<up>" #'paredit-forward-up
   :desc "down" :n "<down>" #'paredit-backward-down
+  :desc "forward to matching sexp" :n "l" #'forward-sexp
+  :desc "backward to matching sexp" :n "h" #'backward-sexp
   ;; nested prefix
   ;; (:prefix ("f" . "forward")
   ;;  :desc "slurp" :n "s" #'paredit-forward-slurp-sexp)
