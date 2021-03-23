@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: useState
+# key: rus
+# --
+
+const [${1:var}, set${1:$(if (>= (length yas-text) 1)
+                             (concat (upcase (substring yas-text 0 1)) (substring yas-text 1))
+                           "")}] = useState($2);
+$0
