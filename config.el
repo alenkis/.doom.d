@@ -1,5 +1,9 @@
 ;;; ~/.doom.d/config.el -*- lexical-binding: t; -*-
 
+;;; Fonts
+;;;
+(setq doom-font (font-spec :family "Menlo" :size 18 :weight 'normal))
+
 (setq projectile-project-paths
       (let ((base-dir "~/projects/")
             (list-of-projects '("clojure"
