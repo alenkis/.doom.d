@@ -1,24 +1,29 @@
 ;;; ~/.doom.d/config.el -*- lexical-binding: t; -*-
 
+
+;;; Environment
+(when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize))
+
 ;;; Fonts
-;;;
 (setq doom-font (font-spec :family "Menlo" :size 18 :weight 'normal))
 
 (setq projectile-project-paths
       (let ((base-dir "~/projects/")
             (list-of-projects '("clojure"
                                 "javascript"
+                                "typescript"
                                 "libraries"
                                 "misc"
                                 "react"
                                 "rust"
-                                "typescript"
                                 "vue")))
         (mapcar (lambda (project) (concat base-dir project)) list-of-projects)))
 
 (setq
  projectile-project-search-path projectile-project-paths)
 
+;;; Org
 (use-package! org-super-agenda
   :after org-agenda
   :init
@@ -39,6 +44,7 @@
 (setq org-todo-keywords
       '((sequence "TODO(t)" "WAIT(w@/!)" "|" "DONE(d!)" "CANCELED(c@)")))
 
+;;; JS/TS
 (setq display-line-numbers-type 'relative)
 (setq-default typescript-indent-level 2)
 (setq-default js2-basic-offset 2)
@@ -70,7 +76,7 @@
                  (ansi-term "/bin/zsh")
                  (rename-buffer "terminal")))))))
 
-(defun setup-tide-mode ()
+(defun setup-typescript-mode ()
   (interactive)
   (tide-setup)
   (flycheck-mode +1)
@@ -80,7 +86,8 @@
   ;; company is an optional dependency. You have to
   ;; install it separately via package-install
   ;; `M-x package-install [ret] company`
-  (company-mode +1))
+  (company-mode +1)
+  (prettier-js-mode +1))
 
 ;; aligns annotation to the right hand side
 (setq company-tooltip-align-annotations t)
@@ -88,10 +95,11 @@
 ;; formats the buffer before saving
 ;; (add-hook 'before-save-hook 'tide-format-before-save)
 
-(add-hook 'typescript-mode-hook #'setup-tide-mode)
+(add-hook 'typescript-mode-hook #'setup-typescript-mode)
 (use-package! flycheck-clj-kondo
   :after clojurescript-mode)
 
+;;; Clojure
 (defun add-clj-format-before-save 
     ()
     (interactive)
@@ -115,7 +123,6 @@
          (s (cider-defun-at-point))
          (reblized (concat "(cognitect.rebl/inspect " s ")")))
     (cider-interactive-eval reblized nil bounds (cider--nrepl-print-request-map))))
-
 
 (map! :after cider
       :map clojure-mode-map
@@ -143,7 +150,7 @@
   ;;  :desc "slurp" :n "s" #'paredit-forward-slurp-sexp)
   ))
 
-;; RUST
+;;; Rust
 (use-package rustic
   :init
   (setq racer-rust-src-path

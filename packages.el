@@ -15,3 +15,4 @@
 (package! vue-mode)
 (package! pug-mode)
 (package! flycheck-clj-kondo)
+(package! exec-path-from-shell)
