@@ -16,3 +16,5 @@
 (package! pug-mode)
 (package! flycheck-clj-kondo)
 (package! exec-path-from-shell)
+(package! haskell-mode)
+(package! lsp-haskell)
