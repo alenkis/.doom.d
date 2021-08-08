@@ -162,3 +162,11 @@
   (setq rustic-flycheck-setup-mode-line-p nil)
   :config
   (setq rustic-format-on-save t))
+
+;;; Haskell
+(map!
+ :map haskell-mode-map
+ :localleader
+ (:prefix ("r" . "repl")
+  :desc "open" :n "o" #'+haskell/open-repl
+  :desc "load" :n "l" #'haskell-process-load-file))
