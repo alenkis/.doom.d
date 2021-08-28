@@ -170,3 +170,11 @@
  (:prefix ("r" . "repl")
   :desc "open" :n "o" #'+haskell/open-repl
   :desc "load" :n "l" #'haskell-process-load-file))
+
+;;; Elm
+
+(defun setup-elm-mode ()
+  (interactive)
+  (elm-format-on-save-mode +1))
+
+(add-hook 'elm-mode-hook #'setup-elm-mode)
