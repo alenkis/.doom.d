@@ -99,6 +99,14 @@
 (use-package! flycheck-clj-kondo
   :after clojurescript-mode)
 
+(defun evil-surround-ts-type ()
+  (let ((tname (evil-surround-read-from-minibuffer "" "")))
+    (cons (format "%s<" (or tname ""))
+          ">")))
+
+(setq-default evil-surround-pairs-alist
+  (push '(?t . evil-surround-ts-type) evil-surround-pairs-alist))
+
 ;;; Clojure
 (defun add-clj-format-before-save 
     ()
