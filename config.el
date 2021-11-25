@@ -177,7 +177,11 @@
  :localleader
  (:prefix ("r" . "repl")
   :desc "open" :n "o" #'+haskell/open-repl
-  :desc "load" :n "l" #'haskell-process-load-file))
+  :desc "load" :n "l" #'haskell-process-load-file)
+ (:prefix ("f" . "format")
+  :desc "format buffer" :n "b" #'ormolu-format-buffer))
+
+(add-hook 'haskell-mode-hook 'ormolu-format-on-save-mode)
 
 ;;; Elm
 
@@ -186,3 +190,22 @@
   (elm-format-on-save-mode +1))
 
 (add-hook 'elm-mode-hook #'setup-elm-mode)
+
+;;; Purescript
+(defun purescript-format-on-save ()
+  (interactive)
+  (let ((file (buffer-file-name)))
+    (shell-command-to-string (concat "purty --write " file))
+    (revert-buffer :ignore-auto :noconfirm)))
+
+(defun setup-purs-format ()
+  (when (eq major-mode 'purescript-mode)
+    (purescript-format-on-save)))
+
+(map!
+ :map purescript-mode-map
+ :localleader
+ (:prefix ("f" . "format")
+  :desc "format buffer" :n "b" #'purescript-format-on-save))
+
+(add-hook 'after-save-hook 'setup-purs-format)

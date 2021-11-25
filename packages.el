@@ -18,3 +18,4 @@
 (package! exec-path-from-shell)
 (package! haskell-mode)
 (package! lsp-haskell)
+(package! ormolu)
