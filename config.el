@@ -1,5 +1,8 @@
 ;;; ~/.doom.d/config.el -*- lexical-binding: t; -*-
+;;;
 
+;;; All buffers
+(require 'undo-tree)
 
 ;;; Environment
 (when (memq window-system '(mac ns x))
@@ -81,6 +84,8 @@
   (tide-setup)
   (flycheck-mode +1)
   (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (setq-default evil-surround-pairs-alist
+      (push '(?t . evil-surround-ts-type) evil-surround-pairs-alist))
   (eldoc-mode +1)
   (tide-hl-identifier-mode +1)
   ;; company is an optional dependency. You have to
@@ -104,17 +109,17 @@
     (cons (format "%s<" (or tname ""))
           ">")))
 
-(setq-default evil-surround-pairs-alist
-  (push '(?t . evil-surround-ts-type) evil-surround-pairs-alist))
 
 ;;; Clojure
-(defun add-clj-format-before-save 
+(defun setup-clojure
     ()
     (interactive)
-    (add-hook 'before-save-hook 'cider-format-buffer t t))
+    (progn
+      (add-hook 'before-save-hook 'cider-format-buffer t t)
+      (setq cider-inspector-fill-frame t)))
 
-(add-hook 'clojure-mode-hook 'add-clj-format-before-save)
-(add-hook 'clojurescript-mode 'add-clj-format-before-save)
+(add-hook 'clojure-mode-hook 'setup-clojure)
+(add-hook 'clojurescript-mode 'setup-clojure)
 
 ;; Similar to C-x C-e, but sends to REBL
 (defun rebl-eval-last-sexp ()
@@ -192,20 +197,26 @@
 (add-hook 'elm-mode-hook #'setup-elm-mode)
 
 ;;; Purescript
+(add-hook 'purescript-mode-hook 'inferior-psci-mode)
+(require 'repl-toggle)
+(require 'psci)
+(add-to-list 'rtog/mode-repl-alist '(purescript-mode . psci))
+
 (defun purescript-format-on-save ()
   (interactive)
   (let ((file (buffer-file-name)))
     (shell-command-to-string (concat "purty --write " file))
     (revert-buffer :ignore-auto :noconfirm)))
 
+
 (defun setup-purs-format ()
   (when (eq major-mode 'purescript-mode)
     (purescript-format-on-save)))
+
+(add-hook 'after-save-hook 'setup-purs-format)
 
 (map!
  :map purescript-mode-map
  :localleader
  (:prefix ("f" . "format")
   :desc "format buffer" :n "b" #'purescript-format-on-save))
-
-(add-hook 'after-save-hook 'setup-purs-format)

@@ -19,3 +19,5 @@
 (package! haskell-mode)
 (package! lsp-haskell)
 (package! ormolu)
+(package! repl-toggle)
+(package! undo-tree)
