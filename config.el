@@ -220,3 +220,9 @@
  :localleader
  (:prefix ("f" . "format")
   :desc "format buffer" :n "b" #'purescript-format-on-save))
+
+;;; OCaml
+(add-hook 'tuareg-mode-hook
+          (lambda () (add-hook 'before-save-hook 'ocamlformat-before-save)))
+
+(setq utop-command "opam config exec -- dune utop . -- -emacs")

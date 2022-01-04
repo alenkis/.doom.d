@@ -21,3 +21,5 @@
 (package! ormolu)
 (package! repl-toggle)
 (package! undo-tree)
+(package! with-editor)
+(package! ocamlformat)
