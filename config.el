@@ -226,3 +226,13 @@
           (lambda () (add-hook 'before-save-hook 'ocamlformat-before-save)))
 
 (setq utop-command "opam config exec -- dune utop . -- -emacs")
+
+(map!
+ :map tuareg-mode-map
+ :localleader
+ (:prefix ("e" . "eval")
+  :desc "buffer" :n "b" #'tuareg-eval-buffer
+  :desc "phrase" :n "p" #'tuareg-eval-phrase)
+ (:prefix ("i" . "insert")
+  :desc "let" :n "l" #'tuareg-insert-let-form
+  :desc "match" :n "m" #'tuareg-insert-let-form))
