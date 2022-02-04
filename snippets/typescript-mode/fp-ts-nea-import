@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: fp-ts-nea-import
+# key: nea
+# --
+
+import * as NEA from 'fp-ts/NonEmptyArray'

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: fp-ts-array-import
+# key: array
+# --
+
+import * as A from 'fp-ts/Array'

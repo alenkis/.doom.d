@@ -3,6 +3,6 @@
 # key: it
 # --
 
-it('should $1', () => {
+it('Should $1', () => {
   $0
 })

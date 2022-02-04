@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: fp-ts-option-import
+# key: option
+# --
+
+import * as O from 'fp-ts/Option'

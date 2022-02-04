@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: fp-ts-either-import
+# key: either
+# --
+
+import * as E from 'fp-ts/Either'
