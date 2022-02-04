@@ -31,16 +31,16 @@
   :after org-agenda
   :init
   (setq org-super-agenda-groups '((:name "Today"
-                                         :time-grid t
-                                         :scheduled today)
+                                   :time-grid t
+                                   :scheduled today)
                                   (:name "Due today"
-                                         :deadline today)
+                                   :deadline today)
                                   (:name "Important"
-                                         :priority "A")
+                                   :priority "A")
                                   (:name "Overdue"
-                                         :deadline past)
+                                   :deadline past)
                                   (:name "Due soon"
-                                         :deadline future)))
+                                   :deadline future)))
   :config
   (org-super-agenda-mode))
 
@@ -84,8 +84,8 @@
   (tide-setup)
   (flycheck-mode +1)
   (setq flycheck-check-syntax-automatically '(save mode-enabled))
-  (setq-default evil-surround-pairs-alist
-      (push '(?t . evil-surround-ts-type) evil-surround-pairs-alist))
+  ;; (setq-default evil-surround-pairs-alist
+  ;;     (push '(?t . evil-surround-ts-type) evil-surround-pairs-alist))
   (eldoc-mode +1)
   (tide-hl-identifier-mode +1)
   ;; company is an optional dependency. You have to
@@ -113,10 +113,10 @@
 ;;; Clojure
 (defun setup-clojure
     ()
-    (interactive)
-    (progn
-      (add-hook 'before-save-hook 'cider-format-buffer t t)
-      (setq cider-inspector-fill-frame t)))
+  (interactive)
+  (progn
+    (add-hook 'before-save-hook 'cider-format-buffer t t)
+    (setq cider-inspector-fill-frame t)))
 
 (add-hook 'clojure-mode-hook 'setup-clojure)
 (add-hook 'clojurescript-mode 'setup-clojure)
@@ -142,8 +142,7 @@
       :localleader
       (:desc "eval" :prefix "e"
        :desc "send last sexp to REBL" :n "E" #'rebl-eval-last-sexp
-       :desc "defn at point to REBL" :n "P" #'rebl-eval-defun-at-point
-       ))
+       :desc "defn at point to REBL" :n "P" #'rebl-eval-defun-at-point))
 
 ;; http://danmidwood.com/content/2014/11/21/animated-paredit.html
 (map!
