@@ -236,3 +236,35 @@
  (:prefix ("i" . "insert")
   :desc "let" :n "l" #'tuareg-insert-let-form
   :desc "match" :n "m" #'tuareg-insert-let-form))
+
+
+;;; DocView
+(setq doc-view-resolution 300)
+
+;;; ReScript
+(customize-set-variable
+ 'lsp-rescript-server-command
+ '("node" "/Users/akis/.vscode/extensions/chenglou92.rescript-vscode-1.2.1/server/out/server.js" "--stdio"))
+
+(with-eval-after-load 'rescript-mode
+  ;; Tell `lsp-mode` about the `rescript-vscode` LSP server
+  (require 'lsp-rescript)
+  ;; Enable `lsp-mode` in rescript-mode buffers
+  (add-hook 'rescript-mode-hook 'lsp-deferred)
+  ;; Enable display of type information in rescript-mode buffers
+  (require 'lsp-ui)
+  (add-hook 'rescript-mode-hook 'lsp-ui-doc-mode)
+
+  (custom-set-variables
+   '(lsp-rescript-prompt-for-build nil)
+   '(lsp-ui-doc-position 'at-point)
+   '(lsp-ui-doc-show-with-cursor t)
+   '(lsp-ui-doc-show-with-mouse t)
+   )
+
+
+  ;; Terrible hack to disable annoying LSP warning
+  (let ((lsp-rescript-handlers (lsp--client-notification-handlers (ht-get lsp-clients 'rescript-vscode))))
+    (puthash "rescript/compilationFinished" #'ignore lsp-rescript-handlers))
+
+  )

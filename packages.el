@@ -23,3 +23,8 @@
 (package! undo-tree)
 (package! with-editor)
 (package! ocamlformat)
+(package! yaml-mode)
+(package! pdf-tools)
+(package! rescript-mode)
+(package! lsp-rescript)
+(package! lsp-ui)
