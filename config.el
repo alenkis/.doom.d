@@ -266,4 +266,7 @@
   (let ((lsp-rescript-handlers (lsp--client-notification-handlers (ht-get lsp-clients 'rescript-vscode))))
     (puthash "rescript/compilationFinished" #'ignore lsp-rescript-handlers))
 
+
+  ;; disable automatic closing of single quotes
+  (sp-local-pair '(rescript-mode) "'" "'" :actions nil)
   )
