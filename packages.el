@@ -28,3 +28,4 @@
 (package! rescript-mode)
 (package! lsp-rescript)
 (package! lsp-ui)
+(package! restclient)

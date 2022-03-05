@@ -165,15 +165,18 @@
 ;;; Rust
 (use-package rustic
   :init
-  (setq racer-rust-src-path
-        (concat
-         (string-trim
-          (shell-command-to-string "rustc --print sysroot"))
-         "/lib/rustlib/src/rust/src"))
   (setq rustic-lsp-server 'rust-analyzer)
   (setq rustic-flycheck-setup-mode-line-p nil)
+  (setq lsp-rust-analyzer-server-display-inlay-hints t)
+  (setq lsp-rust-analyzer-inlay-hints-mode t)
   :config
-  (setq rustic-format-on-save t))
+  (setq rustic-format-on-save t)
+
+  (defun my-rustic-mode-hook ()
+    (set (make-local-variable 'company-backends)
+         '((company-capf company-files :with company-yasnippet)
+           (company-dabbrev-code company-dabbrev))))
+  (add-hook 'rustic-mode-hook #'my-rustic-mode-hook))
 
 ;;; Haskell
 (map!
