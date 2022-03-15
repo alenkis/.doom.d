@@ -29,3 +29,4 @@
 (package! lsp-rescript)
 (package! lsp-ui)
 (package! restclient)
+(package! terraform-mode)
