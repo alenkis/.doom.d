@@ -47,6 +47,14 @@
 (setq org-todo-keywords
       '((sequence "TODO(t)" "WAIT(w@/!)" "|" "DONE(d!)" "CANCELED(c@)")))
 
+;;; Dired
+(map! :after dired
+      :map dired-mode-map
+      :localleader
+      (:desc "Naigate to parent directory" :n "u" #'dired-up-directory
+       :desc "Create an empty file" :n "f" #'dired-create-empty-file))
+
+
 ;;; JS/TS
 (setq display-line-numbers-type 'relative)
 (setq-default typescript-indent-level 2)
