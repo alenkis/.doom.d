@@ -3,6 +3,8 @@
 
 ;;; All buffers
 (require 'undo-tree)
+(global-undo-tree-mode)
+
 
 ;;; Environment
 (when (memq window-system '(mac ns x))
@@ -194,9 +196,9 @@
   :desc "open" :n "o" #'+haskell/open-repl
   :desc "load" :n "l" #'haskell-process-load-file)
  (:prefix ("f" . "format")
-  :desc "format buffer" :n "b" #'ormolu-format-buffer))
+  :desc "format buffer" :n "b" #'haskell-mode-stylish-buffer))
 
-(add-hook 'haskell-mode-hook 'ormolu-format-on-save-mode)
+(setq haskell-stylish-on-save t)
 
 ;;; Elm
 
