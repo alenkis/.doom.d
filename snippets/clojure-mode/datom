@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: Datom schema
+# key: datom
+# --
+
+{:db/ident :$1
+ :db/valueType :db.type/$2
+ :db/cardinality :db.cardinality/one}

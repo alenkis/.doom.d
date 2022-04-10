@@ -1,10 +1,8 @@
 ;;; ~/.doom.d/config.el -*- lexical-binding: t; -*-
-;;;
 
 ;;; All buffers
 (require 'undo-tree)
 (global-undo-tree-mode)
-
 
 ;;; Environment
 (when (memq window-system '(mac ns x))
@@ -29,25 +27,7 @@
  projectile-project-search-path projectile-project-paths)
 
 ;;; Org
-(use-package! org-super-agenda
-  :after org-agenda
-  :init
-  (setq org-super-agenda-groups '((:name "Today"
-                                   :time-grid t
-                                   :scheduled today)
-                                  (:name "Due today"
-                                   :deadline today)
-                                  (:name "Important"
-                                   :priority "A")
-                                  (:name "Overdue"
-                                   :deadline past)
-                                  (:name "Due soon"
-                                   :deadline future)))
-  :config
-  (org-super-agenda-mode))
-
-(setq org-todo-keywords
-      '((sequence "TODO(t)" "WAIT(w@/!)" "|" "DONE(d!)" "CANCELED(c@)")))
+(load! "settings/setup-org")
 
 ;;; Dired
 (map! :after dired
@@ -200,6 +180,10 @@
 
 (setq haskell-stylish-on-save t)
 
+(add-to-list '+lookup-provider-url-alist '("Hoogle" "https://hoogle.haskell.org/?hoogle=%s"))
+(add-to-list '+lookup-provider-url-alist '("Clojuredocs" "https://clojuredocs.org/clojure.core/%s"))
+
+
 ;;; Elm
 
 (defun setup-elm-mode ()
@@ -227,11 +211,25 @@
 
 (add-hook 'after-save-hook 'setup-purs-format)
 
-(map!
- :map purescript-mode-map
- :localleader
- (:prefix ("f" . "format")
-  :desc "format buffer" :n "b" #'purescript-format-on-save))
+(defun query-pursuit (query &optional info)
+  (interactive
+   (let ((def (purescript-ident-at-point)))
+     (if (and def (symbolp def)) (setq def (symbol-name def)))
+     (list (read-string (if def
+                            (format "Pursuit query (default %s): " def)
+                          "Pursuit query: ")
+                        nil nil def)
+           current-prefix-arg)))
+  (let ((browse-url-browser-function 'eww-browse-url))
+    (purescript-pursuit query info))
+
+  (map!
+   :map purescript-mode-map
+   :localleader
+   (:prefix ("f" . "format")
+    :desc "format buffer" :n "b" #'purescript-format-on-save)
+   (:prefix ("o" . "open")
+    :desc "pursuit" :n "p" #'query-pursuit)))
 
 ;;; OCaml
 (add-hook 'tuareg-mode-hook
