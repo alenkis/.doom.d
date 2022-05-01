@@ -4,6 +4,13 @@
 (require 'undo-tree)
 (global-undo-tree-mode)
 
+;; Enable folding
+(setq lsp-enable-folding t)
+
+;; Add origami and LSP integration
+(use-package! lsp-origami)
+(add-hook! 'lsp-after-open-hook #'lsp-origami-try-enable)
+
 ;;; Environment
 (when (memq window-system '(mac ns x))
   (exec-path-from-shell-initialize))
@@ -26,8 +33,8 @@
 (setq
  projectile-project-search-path projectile-project-paths)
 
-;;; Org
 (load! "settings/setup-org")
+(load! "settings/setup-flycheck")
 
 ;;; Dired
 (map! :after dired

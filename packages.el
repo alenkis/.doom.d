@@ -29,3 +29,4 @@
 (package! lsp-ui)
 (package! restclient)
 (package! terraform-mode)
+(package! lsp-origami)
