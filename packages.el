@@ -30,3 +30,5 @@
 (package! restclient)
 (package! terraform-mode)
 (package! lsp-origami)
+(package! ob-elm)
+(package! org-jira)
