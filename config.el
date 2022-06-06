@@ -35,6 +35,7 @@
 
 (load! "settings/setup-org")
 (load! "settings/setup-flycheck")
+(load! "settings/setup-elm")
 
 ;;; Dired
 (map! :after dired
