@@ -44,14 +44,18 @@
        :desc "update-issue" :n "i" #'org-jira-update-issue
        :desc "update-comment" :n "c" #'org-jira-update-comment
        :desc "update-worklogs-from-org-clocks" :n "w" #'org-jira-update-worklogs-from-org-clocks)
+    (:prefix ("c" . "create")
+       :desc "create-issue" :n "i" #'org-jira-create-issue
+       :desc "create-subtask" :n "s" #'org-jira-create-subtask)
+    (:prefix ("r" . "refresh")
+       :desc "refresh-issue" :n "i" #'org-jira-refresh-issue
+       :desc "refresh-issues-in-buffer" :n "b" #'org-jira-refresh-issues-in-buffer)
+
        :desc "browse-issue" :n "b" #'org-jira-browse-issue
        :desc "progress-issue" :n "p" #'org-jira-progress-issue
        :desc "progress-issue-next" :n "n" #'org-jira-progress-issue-next
        :desc "assign-issue" :n "a" #'org-jira-assign-issue
-       :desc "refresh-issue" :n "r" #'org-jira-refresh-issue
-       :desc "refresh-issues-in-buffer" :n "R" #'org-jira-refresh-issues-in-buffer
        :desc "copy-current-issue-key" :n "k" #'org-jira-copy-current-issue-key
-       :desc "create-issue" :n "c" #'org-jira-create-issue
-       :desc "create-subtask" :n "s" #'org-jira-create-subtask
        :desc "add-comment" :n "m" #'org-jira-add-comment
-       :desc "todo-to-jira" :n "t" #'org-jira-todo-to-jira))
+       :desc "todo-to-jira" :n "t" #'org-jira-todo-to-jira)
+   )
