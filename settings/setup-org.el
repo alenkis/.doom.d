@@ -25,6 +25,27 @@
   :config
   (org-super-agenda-mode))
 
+;; Org ROAM
+(use-package! org-roam
+  :init
+  (setq org-roam-v2-ack t)
+  :custom
+  (org-roam-directory "~/RoamNotes")
+  (org-roam-completion-everywhere t))
+
+
+(defun sync-roam-notes ()
+  (interactive)
+  (let ((default-directory "/Users/akis/RoamNotes"))
+    (shell-command "./backup.sh")))
+
+(map!
+ :leader
+ (:prefix ("n" . "notes")
+  (:prefix ( "r" . "roam" )
+   (:desc "sync roam" :n "s" #'sync-roam-notes))))
+
+;; Org JIRA
 (setq jiralib-url "https://bonsai-hq.atlassian.net")
 (map!
    :after org

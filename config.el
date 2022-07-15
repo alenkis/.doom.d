@@ -7,9 +7,9 @@
 ;; Enable folding
 (setq lsp-enable-folding t)
 
-;; Add origami and LSP integration
-(use-package! lsp-origami)
-(add-hook! 'lsp-after-open-hook #'lsp-origami-try-enable)
+(use-package centered-cursor-mode
+  :init
+  (setq centered-cursor-mode t))
 
 ;;; Environment
 (when (memq window-system '(mac ns x))
@@ -191,14 +191,6 @@
 (add-to-list '+lookup-provider-url-alist '("Hoogle" "https://hoogle.haskell.org/?hoogle=%s"))
 (add-to-list '+lookup-provider-url-alist '("Clojuredocs" "https://clojuredocs.org/clojure.core/%s"))
 
-
-;;; Elm
-
-(defun setup-elm-mode ()
-  (interactive)
-  (elm-format-on-save-mode +1))
-
-(add-hook 'elm-mode-hook #'setup-elm-mode)
 
 ;;; Purescript
 (add-hook 'purescript-mode-hook 'inferior-psci-mode)

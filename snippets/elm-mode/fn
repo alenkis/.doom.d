@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: Elm function
+# key: fn
+# --
+
+$1 : $2
+$1 =
+  $3
