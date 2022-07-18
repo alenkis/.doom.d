@@ -29,22 +29,59 @@
 (use-package! org-roam
   :init
   (setq org-roam-v2-ack t)
+  (setq org-roam-node-display-template
+      (concat
+       "${type:15} ${title:*} "
+       (propertize "${tags:10}" 'face 'org-tag)))
   :custom
   (org-roam-directory "~/RoamNotes")
-  (org-roam-completion-everywhere t))
+  (org-roam-completion-everywhere t)
+  (org-roam-capture-templates
+   '(("m" "main" plain
+      "%?"
+      :if-new (file+head "main/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+      :immediate-finish t
+      :unnarrowed t)
+     ("r" "reference" plain "%?"
+      :if-new
+      (file+head "reference/${title}.org" "#+title: ${title}\n")
+      :immediate-finish t
+      :unnarrowed t)
+     ("b" "Bonsai" plain (file "~/RoamNotes/templates/bonsai.org")
+      :if-new (file+head "projects/bonsai/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: Bonsai")
+      :immediate-finish t
+      :unnarrowed t)
+     )
+   )
+  )
 
-
-(defun sync-roam-notes ()
+(defun org-roam-sync-notes ()
   (interactive)
   (let ((default-directory "/Users/akis/RoamNotes"))
     (shell-command "./backup.sh")))
+
+(defun org-roam-node-insert-immediate (arg &rest args)
+  (interactive "P")
+  (let ((args (cons arg args))
+        (org-roam-capture-templates (list (append (car org-roam-capture-templates)
+                                                  '(:immediate-finish t)))))
+    (apply #'org-roam-node-insert args)))
+
+(cl-defmethod org-roam-node-type ((node org-roam-node))
+  "Return the TYPE of NODE."
+  (condition-case nil
+      (file-name-nondirectory
+       (directory-file-name
+        (file-name-directory
+         (file-relative-name (org-roam-node-file node) org-roam-directory))))
+    (error "")))
 
 (map!
  :leader
  (:prefix ("n" . "notes")
   (:prefix ( "r" . "roam" )
-   (:desc "sync roam" :n "s" #'sync-roam-notes))))
-
+   (:desc "Sync roam" :n "s" #'org-roam-sync-notes)
+   (:desc "Insert immediate" :n "I" #'org-roam-node-insert-immediate))))
 
 (use-package! websocket
     :after org-roam)

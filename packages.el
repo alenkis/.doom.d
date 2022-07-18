@@ -31,6 +31,4 @@
 (package! terraform-mode)
 (package! ob-elm)
 (package! org-jira)
-
-(unpin! org-roam)
 (package! org-roam-ui)
