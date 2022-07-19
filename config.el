@@ -36,6 +36,7 @@
 (load! "settings/setup-org")
 (load! "settings/setup-flycheck")
 (load! "settings/setup-elm")
+(load! "settings/setup-clojure")
 
 ;;; Dired
 (map! :after dired
@@ -92,6 +93,12 @@
   (company-mode +1)
   (prettier-js-mode +1))
 
+(defun setup-mhtml-mode ()
+  (interactive)
+  (format-all-mode nil))
+
+(add-hook 'mhtml-mode-hook #'setup-mhtml-mode)
+
 ;; aligns annotation to the right hand side
 (setq company-tooltip-align-annotations t)
 
@@ -99,66 +106,11 @@
 ;; (add-hook 'before-save-hook 'tide-format-before-save)
 
 (add-hook 'typescript-mode-hook #'setup-typescript-mode)
-(use-package! flycheck-clj-kondo
-  :after clojurescript-mode)
-
 (defun evil-surround-ts-type ()
   (let ((tname (evil-surround-read-from-minibuffer "" "")))
     (cons (format "%s<" (or tname ""))
           ">")))
 
-
-;;; Clojure
-(defun setup-clojure
-    ()
-  (interactive)
-  (progn
-    (add-hook 'before-save-hook 'cider-format-buffer t t)
-    (setq cider-inspector-fill-frame t)))
-
-(add-hook 'clojure-mode-hook 'setup-clojure)
-(add-hook 'clojurescript-mode 'setup-clojure)
-
-;; Similar to C-x C-e, but sends to REBL
-(defun rebl-eval-last-sexp ()
-  (interactive)
-  (let* ((bounds (cider-last-sexp 'bounds))
-         (s (cider-last-sexp))
-         (reblized (concat "(cognitect.rebl/inspect " s ")")))
-    (cider-interactive-eval reblized nil bounds (cider--nrepl-print-request-map))))
-
-;; Similar to C-M-x, but sends to REBL
-(defun rebl-eval-defun-at-point ()
-  (interactive)
-  (let* ((bounds (cider-defun-at-point 'bounds))
-         (s (cider-defun-at-point))
-         (reblized (concat "(cognitect.rebl/inspect " s ")")))
-    (cider-interactive-eval reblized nil bounds (cider--nrepl-print-request-map))))
-
-(map! :after cider
-      :map clojure-mode-map
-      :localleader
-      (:desc "eval" :prefix "e"
-       :desc "send last sexp to REBL" :n "E" #'rebl-eval-last-sexp
-       :desc "defn at point to REBL" :n "P" #'rebl-eval-defun-at-point))
-
-;; http://danmidwood.com/content/2014/11/21/animated-paredit.html
-(map!
- :map clojure-mode-map
- :localleader
- (:prefix ("f" . "paredit")
-  :desc "slurp" :n "s" #'paredit-forward-slurp-sexp
-  :desc "barf" :n "b" #'paredit-forward-barf-sexp
-  :desc "forward" :n "<right>" #'paredit-forward
-  :desc "backward" :n "<left>" #'paredit-backward
-  :desc "up" :n "<up>" #'paredit-forward-up
-  :desc "down" :n "<down>" #'paredit-backward-down
-  :desc "forward to matching sexp" :n "l" #'forward-sexp
-  :desc "backward to matching sexp" :n "h" #'backward-sexp
-  ;; nested prefix
-  ;; (:prefix ("f" . "forward")
-  ;;  :desc "slurp" :n "s" #'paredit-forward-slurp-sexp)
-  ))
 
 ;;; Rust
 (use-package rustic
@@ -167,6 +119,7 @@
   (setq rustic-flycheck-setup-mode-line-p nil)
   (setq lsp-rust-analyzer-server-display-inlay-hints t)
   (setq lsp-rust-analyzer-inlay-hints-mode t)
+  (setq lsp-rust-analyzer-proc-macro-enable t)
   :config
   (setq rustic-format-on-save t)
 
