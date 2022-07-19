@@ -29,10 +29,6 @@
 (use-package! org-roam
   :init
   (setq org-roam-v2-ack t)
-  (setq org-roam-node-display-template
-      (concat
-       "${type:15} ${title:*} "
-       (propertize "${tags:10}" 'face 'org-tag)))
   :custom
   (org-roam-directory "~/RoamNotes")
   (org-roam-completion-everywhere t)
@@ -54,6 +50,9 @@
      )
    )
   )
+
+(setq org-roam-node-display-template
+  (concat "${type:8} ${title:40} " (propertize "${tags:80}" 'face 'org-tag)))
 
 (defun org-roam-sync-notes ()
   (interactive)
