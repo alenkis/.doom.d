@@ -18,6 +18,7 @@
 (package! exec-path-from-shell)
 (package! haskell-mode)
 (package! lsp-haskell)
+(package! ormolu)
 (package! repl-toggle)
 (package! undo-tree)
 (package! with-editor)

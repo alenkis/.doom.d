@@ -130,22 +130,6 @@
            (company-dabbrev-code company-dabbrev))))
   (add-hook 'rustic-mode-hook #'my-rustic-mode-hook))
 
-;;; Haskell
-(map!
- :map haskell-mode-map
- :localleader
- (:prefix ("r" . "repl")
-  :desc "open" :n "o" #'+haskell/open-repl
-  :desc "load" :n "l" #'haskell-process-load-file)
- (:prefix ("f" . "format")
-  :desc "format buffer" :n "b" #'haskell-mode-stylish-buffer))
-
-(setq haskell-stylish-on-save t)
-
-(add-to-list '+lookup-provider-url-alist '("Hoogle" "https://hoogle.haskell.org/?hoogle=%s"))
-(add-to-list '+lookup-provider-url-alist '("Clojuredocs" "https://clojuredocs.org/clojure.core/%s"))
-
-
 ;;; Purescript
 (add-hook 'purescript-mode-hook 'inferior-psci-mode)
 (require 'repl-toggle)
