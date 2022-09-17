@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: println
+# key: prn
+# --
+
+println!("{}", $1);
+$0

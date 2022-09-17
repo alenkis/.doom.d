@@ -16,7 +16,7 @@
   (exec-path-from-shell-initialize))
 
 ;;; Fonts
-(setq doom-font (font-spec :family "Menlo" :size 18 :weight 'normal))
+(setq doom-font (font-spec :family "Menlo" :size 22 :weight 'normal))
 
 (setq projectile-project-paths
       (let ((base-dir "~/projects/")
@@ -24,6 +24,7 @@
                                 "javascript"
                                 "typescript"
                                 "libraries"
+                                "haskell"
                                 "misc"
                                 "react"
                                 "rust"
