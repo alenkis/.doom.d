@@ -7,6 +7,8 @@
 ;; Enable folding
 (setq lsp-enable-folding t)
 
+(setq lsp-ui-doc t)
+
 (use-package centered-cursor-mode
   :init
   (setq centered-cursor-mode t))
@@ -38,6 +40,7 @@
 (load! "settings/setup-flycheck")
 (load! "settings/setup-elm")
 (load! "settings/setup-clojure")
+(load! "settings/setup-haskell")
 
 ;;; Dired
 (map! :after dired
@@ -189,6 +192,13 @@
 ;;; DocView
 (setq doc-view-resolution 300)
 
+(custom-set-variables
+ '(lsp-rescript-prompt-for-build nil)
+ '(lsp-ui-doc-position 'bottom)
+ '(lsp-ui-doc-show-with-cursor t)
+ '(lsp-ui-doc-show-with-mouse t)
+)
+
 ;;; ReScript
 (customize-set-variable
  'lsp-rescript-server-command
@@ -203,12 +213,6 @@
   (require 'lsp-ui)
   (add-hook 'rescript-mode-hook 'lsp-ui-doc-mode)
 
-  (custom-set-variables
-   '(lsp-rescript-prompt-for-build nil)
-   '(lsp-ui-doc-position 'at-point)
-   '(lsp-ui-doc-show-with-cursor t)
-   '(lsp-ui-doc-show-with-mouse t)
-   )
 
 
   ;; Terrible hack to disable annoying LSP warning
@@ -219,3 +223,4 @@
   ;; disable automatic closing of single quotes
   (sp-local-pair '(rescript-mode) "'" "'" :actions nil)
   )
+

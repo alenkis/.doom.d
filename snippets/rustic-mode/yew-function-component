@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: yew-function-component
+# key: yfc
+# --
+
+#[function_component(${1:$(snake-to-pascal-case yas-text)})]
+fn $1() -> Html {
+    html! { "$1" }
+}

@@ -13,6 +13,10 @@
 (add-hook 'clojure-mode-hook 'setup-clojure)
 (add-hook 'clojurescript-mode 'setup-clojure)
 
+(add-hook 'clojure-mode-hook 'lsp)
+(add-hook 'clojurescript-mode-hook 'lsp)
+(add-hook 'clojurec-mode-hook 'lsp)
+
 ;; Similar to C-x C-e, but sends to REBL
 (defun rebl-eval-last-sexp ()
   (interactive)

@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: function_component
+# key: fc
+# --
+
+#[function_component(${1:$(snake-to-pascal-case yas-text)})]
+fn $1(${1:$(capitalize-props yas-text)} { $2 }: &${1:$(capitalize-props yas-text)} ) -> Html {
+  $3
+}

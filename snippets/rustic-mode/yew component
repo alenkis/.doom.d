@@ -1,0 +1,33 @@
+# key: yc
+# name: yew component
+# --
+#[derive(PartialEq, Properties)]
+pub struct Props;
+
+pub struct $1;
+
+enum $1Msg {
+    NoOp,
+}
+
+impl Component for $1 {
+    type Message = $1Msg;
+    type Properties = Props;
+
+    fn create(ctx: &Context<Self>) -> Self {
+        $1
+    }
+    fn update(&mut self, _ctx: &Context<Self>, msg: Self::Message) -> bool {
+        match msg {
+            $1Msg::NoOp => {
+              true
+            }
+        }
+    }
+
+    fn view(&self, _ctx: &Context<Self>) -> Html {
+        html! {
+            // impl
+        }
+    }
+}
