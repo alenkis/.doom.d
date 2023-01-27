@@ -19,6 +19,7 @@
        ivy               ; a search engine for love and life
 
        :ui
+       (ligatures +extra +fira)
        ;;deft              ; notational velocity for Emacs
        doom              ; what makes DOOM look the way it does
        doom-dashboard    ; a nifty splash screen for Emacs
@@ -123,7 +124,7 @@
        markdown          ; writing docs for people to ignore
        ;;nim               ; python + lisp at the speed of c
        nix               ; I hereby declare "nix geht mehr!"
-       ocaml             ; an objective camel
+       (ocaml +lsp)             ; an objective camel
        (org              ; organize your plain life in plain text
         +attach          ; custom attachment system
         +babel           ; running code in org
