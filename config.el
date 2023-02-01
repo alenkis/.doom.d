@@ -13,9 +13,10 @@
   :init
   (setq centered-cursor-mode t))
 
-;;; Environment
+;;; environment
 (when (memq window-system '(mac ns x))
   (exec-path-from-shell-initialize))
+
 
 ;;; Fonts
 (setq doom-font (font-spec :family "Menlo" :size 22 :weight 'normal))
@@ -82,11 +83,22 @@
                  (ansi-term "/bin/zsh")
                  (rename-buffer "terminal")))))))
 
+(defun my/use-bonsai-tsserver ()
+  "Sets tsserver executable to Bonsai specific one"
+  (let (path)
+    (setq path "/Users/akis/projects/bonsai/.yarn/sdks/typescript/lib/tsserver")
+    (setq-default lsp-clients-typescript-server-args `("--stdio" "--tsserver-path" ,path))))
+
+
+(setq-default lsp-clients-typescript-server-args `("--stdio" "--tsserver-path", "/Users/akis/projects/bonsai/.yarn/sdks/typescript/lib/tsserver"))
+
 (defun setup-typescript-mode ()
   (interactive)
   (tide-mode -1)
   (lsp)
+  (my/use-bonsai-tsserver)
   (flycheck-mode +1)
+  (setq lsp-typescript-tsdk "/Users/akis/projects/bonsai/.yarn/sdks/typescript/lib/tsserver")
   (setq flycheck-check-syntax-automatically '(save mode-enabled))
   ;; (setq-default evil-surround-pairs-alist
   ;;     (push '(?t . evil-surround-ts-type) evil-surround-pairs-alist))
