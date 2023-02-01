@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: elm-log
+# key: log
+# --
+
+let _ = Debug.log "$1: " $2 in
+$0

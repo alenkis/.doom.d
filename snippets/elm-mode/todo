@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: Debug.todo
+# key: todo
+# --
+
+Debug.todo "not implemented"

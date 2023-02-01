@@ -84,18 +84,34 @@
 
 (defun setup-typescript-mode ()
   (interactive)
-  (tide-setup)
+  (lsp)
   (flycheck-mode +1)
   (setq flycheck-check-syntax-automatically '(save mode-enabled))
   ;; (setq-default evil-surround-pairs-alist
   ;;     (push '(?t . evil-surround-ts-type) evil-surround-pairs-alist))
-  (eldoc-mode +1)
-  (tide-hl-identifier-mode +1)
+  ;; (eldoc-mode +1)
+  ;; (tide-hl-identifier-mode +1)
   ;; company is an optional dependency. You have to
   ;; install it separately via package-install
   ;; `M-x package-install [ret] company`
   (company-mode +1)
-  (prettier-js-mode +1))
+  (prettier-js-mode +1)
+
+  (require 'lsp-ui)
+
+  (require 'eldoc)
+  (global-eldoc-mode -1)
+
+  (custom-set-variables
+   '(lsp-ui-doc-position 'at-point)
+   '(lsp-ui-doc-include-signature t)
+   '(lsp-ui-doc-show-with-cursor t)
+   '(lsp-ui-doc-show-with-mouse t)
+   '(lsp-ui-doc-header nil)
+   '(lsp-eldoc-enable-hover nil)
+   '(lsp-eldoc-render-all nil)
+   )
+  )
 
 (defun setup-mhtml-mode ()
   (interactive)

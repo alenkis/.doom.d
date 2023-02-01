@@ -33,3 +33,4 @@
 (package! ob-elm)
 (package! org-jira)
 (package! org-roam-ui)
+(package! just-mode)
