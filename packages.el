@@ -34,3 +34,5 @@
 (package! org-jira)
 (package! org-roam-ui)
 (package! just-mode)
+(package! copilot
+  :recipe (:host github :repo "zerolfx/copilot.el" :files ("*.el" "dist")))

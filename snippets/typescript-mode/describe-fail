@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: describe-fail
+# key: describe-fail
+# --
+
+describe('$1', () => {
+  it('Should fail', () => {
+    expect(true).toBe(false);
+  });
+});
