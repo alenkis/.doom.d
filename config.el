@@ -84,6 +84,7 @@
 
 (defun setup-typescript-mode ()
   (interactive)
+  (tide-mode -1)
   (lsp)
   (flycheck-mode +1)
   (setq flycheck-check-syntax-automatically '(save mode-enabled))
@@ -138,8 +139,11 @@
   (setq rustic-lsp-server 'rust-analyzer)
   (setq rustic-flycheck-setup-mode-line-p nil)
   (setq lsp-rust-analyzer-server-display-inlay-hints t)
+  (setq lsp-rust-analyzer-linked-projects ["services/ecomm-integrations/feed/lib/Cargo.toml"])
   (setq lsp-rust-analyzer-inlay-hints-mode t)
-  (setq lsp-rust-analyzer-proc-macro-enable t)
+  :custom
+  (rustic-analyzer-command '("rustup" "run" "stable" "rust-analyzer"))
+  (rustic-)
   :config
   (setq rustic-format-on-save t)
 
