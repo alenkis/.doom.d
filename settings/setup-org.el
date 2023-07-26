@@ -25,6 +25,10 @@
   :config
   (org-super-agenda-mode))
 
+(advice-add 'org-agenda-goto :after
+  (lambda (&rest _args)
+    (org-narrow-to-subtree)))
+
 ;; Org ROAM
 (use-package! org-roam
   :init
