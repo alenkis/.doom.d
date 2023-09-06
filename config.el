@@ -11,14 +11,14 @@
 
 (use-package centered-cursor-mode
   :init
-  (setq centered-cursor-mode t))
+  (global-centered-cursor-mode +1))
 
 ;;; Environment
 (when (memq window-system '(mac ns x))
   (exec-path-from-shell-initialize))
 
 ;;; Fonts
-(setq doom-font (font-spec :family "Menlo" :size 22 :weight 'normal))
+(setq doom-font (font-spec :family "Menlo" :size 18 :weight 'normal))
 
 (setq projectile-project-paths
       (let ((base-dir "~/projects/")
@@ -220,6 +220,12 @@
   :desc "match" :n "m" #'tuareg-insert-let-form))
 
 
+;;; Go
+(add-hook 'go-mode-hook 'lsp-deferred)
+
+(add-hook 'go-mode-hook
+          (lambda ()
+            (setq-local +lookup-references-functions '(lsp-find-references))))
 ;;; DocView
 (setq doc-view-resolution 300)
 

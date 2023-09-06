@@ -5,6 +5,11 @@
              '("w" "Work-related task" entry
                (file "~/org/work.org")
                "* TODO %?" :empty-lines 1))
+
+  (add-to-list 'org-capture-templates
+             '("t" "Personal todo" entry
+               (file "~/org/todo.org")
+               "* TODO %?" :empty-lines 1))
   (setq org-todo-keywords
       '((sequence "TODO(t)" "WAIT(w@/!)" "|" "DONE(d!)" "CANCELED(c@)"))))
 
