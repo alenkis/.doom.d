@@ -18,12 +18,11 @@
 
 (add-hook 'after-save-hook 'setup-purs-format)
 
+;; Temporary (partial) fix, until I get response from https://github.com/purescript-emacs/purescript-mode/issues/16
 (add-hook 'purescript-mode-hook
           (lambda ()
             (font-lock-add-keywords nil
                                     '(("--|.*" . font-lock-comment-face)))))
-
-
 
 (defun query-pursuit (query &optional info)
   (interactive
