@@ -42,6 +42,7 @@
 (load! "settings/setup-elm")
 (load! "settings/setup-clojure")
 (load! "settings/setup-haskell")
+(load! "settings/setup-rust")
 (load! "settings/setup-purescript")
 
 ;;; Dired
@@ -145,27 +146,6 @@
     (cons (format "%s<" (or tname ""))
           ">")))
 
-
-;;; Rust
-(use-package rustic
-  :init
-  (setq rustic-lsp-server 'rust-analyzer)
-  (setq rustic-flycheck-setup-mode-line-p nil)
-  (setq lsp-rust-analyzer-server-display-inlay-hints t)
-  (setq lsp-rust-analyzer-linked-projects ["services/ecomm-integrations/feed/lib/Cargo.toml"])
-  (setq lsp-rust-analyzer-inlay-hints-mode t)
-  :custom
-  (rustic-analyzer-command '("rustup" "run" "stable" "rust-analyzer"))
-  (rustic-)
-  :config
-  (setq rustic-format-on-save t)
-
-  (defun my-rustic-mode-hook ()
-    (set (make-local-variable 'company-backends)
-         '((company-capf company-files :with company-yasnippet)
-           (company-dabbrev-code company-dabbrev))))
-  (add-hook 'rustic-mode-hook #'my-rustic-mode-hook))
-
 ;;; Copilot
 ;; accept completion from copilot and fallback to company
 (use-package! copilot
@@ -207,7 +187,7 @@
  '(lsp-ui-doc-position 'bottom)
  '(lsp-ui-doc-show-with-cursor t)
  '(lsp-ui-doc-show-with-mouse t)
-)
+ )
 
 ;;; ReScript
 (customize-set-variable
