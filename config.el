@@ -4,6 +4,8 @@
 (require 'undo-tree)
 (global-undo-tree-mode)
 
+(setq treemacs-position 'right)
+
 ;; Enable folding
 (setq lsp-enable-folding t)
 
@@ -175,7 +177,6 @@
 
 ;;; Go
 (add-hook 'go-mode-hook 'lsp-deferred)
-
 (add-hook 'go-mode-hook
           (lambda ()
             (setq-local +lookup-references-functions '(lsp-find-references))))
