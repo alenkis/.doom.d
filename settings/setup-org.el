@@ -1,10 +1,23 @@
 ;;; settings/setup-org.el -*- lexical-binding: t; -*-
 
+(defun format-ticket-link (ticket-id)
+  "Format the TICKET-ID as a hyperlink."
+  (format "[[https://linear.app/icgroup/issue/%s][%s]]" ticket-id ticket-id))
+
 (after! org
+  (setq org-capture-templates nil)
+
   (add-to-list 'org-capture-templates
              '("w" "Work-related task" entry
                (file "~/org/work.org")
-               "* TODO %?" :empty-lines 1))
+               "
+* TODO %^{Task Title}
+  CREATED: %U
+  DEADLINE: %^T
+  TICKET: [[https://linear.app/icgroup/issue/sty-%^{Ticket}][STY-%\\2]]
+** Description\n  %?
+** Overview\n"
+               :empty-lines 1))
   (add-to-list 'org-capture-templates
              '("N" "Work-related note" entry
                (file "~/org/work-notes.org")

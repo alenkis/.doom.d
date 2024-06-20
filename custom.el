@@ -16,8 +16,11 @@
  '(lsp-ui-doc-position 'at-point)
  '(lsp-ui-doc-show-with-cursor t)
  '(lsp-ui-doc-show-with-mouse t)
+ '(org-startup-folded t)
+ '(org-startup-indented t)
  '(safe-local-variable-values
-   '((projectile-project-name . "launchdarkly")
+   '((encoding . ascii)
+     (projectile-project-name . "launchdarkly")
      (projectile-project-name . "launchdarkly-example")
      (projectile-project-name . launchdarkly-example)
      (projectile-project-name . launchdarkly)
