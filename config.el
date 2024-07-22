@@ -1,5 +1,11 @@
 ;;; ~/.doom.d/config.el -*- lexical-binding: t; -*-
 
+
+(use-package origami)
+;; always enable origami
+(add-hook 'prog-mode-hook
+          (lambda () (origami-mode)))
+
 ;;; All buffers
 (require 'undo-tree)
 (global-undo-tree-mode)
