@@ -38,3 +38,4 @@
   :recipe (:host github :repo "zerolfx/copilot.el" :files ("*.el" "dist")))
 (package! elm-mode)
 (package! origami)
+(package! outline-indent)
