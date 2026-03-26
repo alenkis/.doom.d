@@ -13,7 +13,6 @@
 (package! emmet-mode)
 (package! vue-mode)
 (package! pug-mode)
-(package! flycheck-clj-kondo)
 (package! haskell-mode)
 (package! lsp-haskell)
 (package! ormolu)

@@ -1,18 +1,27 @@
 ;;; settings/setup-clojure.el -*- lexical-binding: t; -*-
 
-(use-package! flycheck-clj-kondo
-  :after clojurescript-mode)
+(setq cider-inspector-fill-frame t)
 
-(defun setup-clojure ()
-  (interactive)
-  (setq cider-inspector-fill-frame t))
-
-(add-hook 'clojure-mode-hook 'setup-clojure)
-(add-hook 'clojurescript-mode 'setup-clojure)
-
-(add-hook 'clojure-mode-hook 'lsp)
-(add-hook 'clojurescript-mode-hook 'lsp)
-(add-hook 'clojurec-mode-hook 'lsp)
+;; Fix REPL routing: search all sessions when the current session
+;; doesn't have a REPL of the right type (clj/cljs).
+;; Works around sesman-current-sessions returning nil.
+(after! cider
+  (defun +cider/repls-across-sessions (orig-fn &optional type ensure required-ops)
+    "Fall back to searching all CIDER sessions for matching REPLs."
+    (or (condition-case nil
+            (funcall orig-fn type ensure required-ops)
+          (user-error nil))
+        (let* ((type (cond
+                      ((listp type) (mapcar #'cider-maybe-intern type))
+                      (t (cider-maybe-intern type))))
+               (all-repls (apply #'append
+                                 (mapcar #'cdr (sesman-sessions 'CIDER)))))
+          (seq-filter (lambda (b)
+                        (and (buffer-live-p b)
+                             (not (cider-cljs-pending-p b))
+                             (cider--match-repl-type type b)))
+                      all-repls))))
+  (advice-add 'cider-repls :around #'+cider/repls-across-sessions))
 
 ;; Use clojure-lsp's built-in cljfmt for format-on-save
 (setq-hook! 'clojure-mode-hook +format-with 'lsp)
