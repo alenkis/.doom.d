@@ -5,10 +5,7 @@
 
 (defun setup-clojure ()
   (interactive)
-  (progn
-    (add-hook 'before-save-hook 'cider-format-buffer t t)
-    (setq cider-inspector-fill-frame t)
-    (setq lsp-mode t)))
+  (setq cider-inspector-fill-frame t))
 
 (add-hook 'clojure-mode-hook 'setup-clojure)
 (add-hook 'clojurescript-mode 'setup-clojure)
@@ -17,28 +14,10 @@
 (add-hook 'clojurescript-mode-hook 'lsp)
 (add-hook 'clojurec-mode-hook 'lsp)
 
-;; Similar to C-x C-e, but sends to REBL
-(defun rebl-eval-last-sexp ()
-  (interactive)
-  (let* ((bounds (cider-last-sexp 'bounds))
-         (s (cider-last-sexp))
-         (reblized (concat "(cognitect.rebl/inspect " s ")")))
-    (cider-interactive-eval reblized nil bounds (cider--nrepl-print-request-map))))
-
-;; Similar to C-M-x, but sends to REBL
-(defun rebl-eval-defun-at-point ()
-  (interactive)
-  (let* ((bounds (cider-defun-at-point 'bounds))
-         (s (cider-defun-at-point))
-         (reblized (concat "(cognitect.rebl/inspect " s ")")))
-    (cider-interactive-eval reblized nil bounds (cider--nrepl-print-request-map))))
-
-(map! :after cider
-      :map clojure-mode-map
-      :localleader
-      (:desc "eval" :prefix "e"
-       :desc "send last sexp to REBL" :n "E" #'rebl-eval-last-sexp
-       :desc "defn at point to REBL" :n "P" #'rebl-eval-defun-at-point))
+;; Use clojure-lsp's built-in cljfmt for format-on-save
+(setq-hook! 'clojure-mode-hook +format-with 'lsp)
+(setq-hook! 'clojurescript-mode-hook +format-with 'lsp)
+(setq-hook! 'clojurec-mode-hook +format-with 'lsp)
 
 ;; http://danmidwood.com/content/2014/11/21/animated-paredit.html
 (map!
@@ -52,8 +31,4 @@
   :desc "up" :n "<up>" #'paredit-forward-up
   :desc "down" :n "<down>" #'paredit-backward-down
   :desc "forward to matching sexp" :n "l" #'forward-sexp
-  :desc "backward to matching sexp" :n "h" #'backward-sexp
-  ;; nested prefix
-  ;; (:prefix ("f" . "forward")
-  ;;  :desc "slurp" :n "s" #'paredit-forward-slurp-sexp)
-  ))
+  :desc "backward to matching sexp" :n "h" #'backward-sexp))

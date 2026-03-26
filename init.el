@@ -13,10 +13,10 @@
        ;;japanese
 
        :completion
-       (company +childrame)           ; the ultimate code completion backend
+       corfu             ; completion UI based on Emacs CAPF
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
-       ivy               ; a search engine for love and life
+       vertico           ; the search engine of the future
 
        :ui
        ;;deft              ; notational velocity for Emacs
@@ -61,7 +61,7 @@
         )
        electric          ; smarter, keyword-based electric-indent
        vc                ; version-control and Emacs, sitting in a tree
-       (undo +tree)
+       undo
 
        :term
        ;;eshell            ; a consistent, cross-platform shell (WIP)
@@ -76,7 +76,7 @@
        ;;editorconfig      ; let someone else argue about tabs vs spaces
        ;;ein               ; tame Jupyter notebooks with emacs
        eval              ; run code, run (also, repls)
-       flycheck          ; tasing you for every semicolon you forget
+       ;;flycheck          ; moved to :checkers syntax
        ;;flyspell          ; tasing you for misspelling mispelling
        ;;gist              ; interacting with github gists
        (lookup           ; helps you navigate your code and documentation
@@ -92,6 +92,9 @@
        ;;terraform         ; infrastructure as code
        ;;tmux              ; an API for interacting with tmux
        ;;upload            ; map local to remote projects via ssh/ftp
+
+       :checkers
+       syntax            ; tasing you for every semicolon you forget
 
        :lang
        ;;agda              ; types of types of types of types...

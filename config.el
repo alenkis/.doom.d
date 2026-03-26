@@ -1,27 +1,13 @@
 ;;; ~/.doom.d/config.el -*- lexical-binding: t; -*-
 
 
-(use-package origami)
-;; always enable origami
-(add-hook 'prog-mode-hook
-          (lambda () (origami-mode)))
-
-;;; All buffers
-(require 'undo-tree)
-(global-undo-tree-mode)
-
 ;; Enable folding
 (setq lsp-enable-folding t)
 
 (setq lsp-ui-doc t)
 
 (use-package centered-cursor-mode
-  :init
-  (global-centered-cursor-mode +1))
-
-;;; Environment
-(when (memq window-system '(mac ns x))
-  (exec-path-from-shell-initialize))
+  :commands centered-cursor-mode)
 
 ;;; Fonts
 (setq doom-font (font-spec :family "Menlo" :size 18 :weight 'normal))
@@ -103,7 +89,7 @@
   ;; company is an optional dependency. You have to
   ;; install it separately via package-install
   ;; `M-x package-install [ret] company`
-  (company-mode +1)
+
   (prettier-js-mode +1)
 
   (require 'lsp-ui)
@@ -128,9 +114,6 @@
 
 (add-hook 'mhtml-mode-hook #'setup-mhtml-mode)
 
-;; aligns annotation to the right hand side
-(setq company-tooltip-align-annotations t)
-
 ;; formats the buffer before saving
 ;; (add-hook 'before-save-hook 'tide-format-before-save)
 
@@ -139,16 +122,6 @@
   (let ((tname (evil-surround-read-from-minibuffer "" "")))
     (cons (format "%s<" (or tname ""))
           ">")))
-
-;;; Copilot
-;; accept completion from copilot and fallback to company
-(use-package! copilot
-  :hook (prog-mode . copilot-mode)
-  :bind (("C-TAB" . 'copilot-accept-completion-by-word)
-         ("C-<tab>" . 'copilot-accept-completion-by-word)
-         :map copilot-completion-map
-         ("<tab>" . 'copilot-accept-completion)
-         ("TAB" . 'copilot-accept-completion)))
 
 ;;; OCaml
 (add-hook 'tuareg-mode-hook
