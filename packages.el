@@ -7,6 +7,9 @@
 ;; (package! builtin-package :disable t)
 
 (package! org-super-agenda)
+(package! org-modern)
+(package! org-jira)
+
 (package! centered-cursor-mode)
 (package! github-review)
 (package! prettier-js)
@@ -27,8 +30,14 @@
 (package! restclient)
 (package! terraform-mode)
 (package! ob-elm)
-(package! org-jira)
-(package! org-roam-ui)
 (package! just-mode)
 (package! elm-mode)
 (package! outline-indent)
+(package! mise)
+(package! exec-path-from-shell)
+
+(package! eat)
+(package! claude-code-ide
+  :recipe (:host github :repo "manzaltu/claude-code-ide.el"))
+
+
