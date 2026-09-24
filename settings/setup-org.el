@@ -1,5 +1,18 @@
 ;;; settings/setup-org.el -*- lexical-binding: t; -*-
 
+(defcustom my/org-daily-cutoff-hour 14
+  "Hour after which daily capture defaults to tomorrow."
+  :type 'integer)
+
+(defun my/org-capture-daily-template ()
+  (let* ((default (when (>= (decoded-time-hour (decode-time))
+                            my/org-daily-cutoff-hour)
+                    (time-add nil (days-to-time 1))))
+         (date (org-read-date nil t nil "Schedule for: " default)))
+    (concat "* TODO %?\n"
+            "SCHEDULED: " (format-time-string "<%Y-%m-%d %a>" date) "\n"
+            ":PROPERTIES:\n:CREATED: %U\n:END:\n")))
+
 (after! org
   (setq org-directory "~/org/"
         org-agenda-files '("~/org/work.org"
@@ -48,6 +61,11 @@
         '(("w" "Work TODO" entry
            (file "~/org/work.org")
            "* TODO %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n"
+           :empty-lines 1)
+
+          ("d" "Daily task" entry
+           (file "~/org/work.org")
+           (function my/org-capture-daily-template)
            :empty-lines 1)
 
           ("t" "General note / TODO" entry
